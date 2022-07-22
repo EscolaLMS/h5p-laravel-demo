@@ -58,7 +58,9 @@
             "php artisan clear-compiled",
             "php artisan optimize",
             "chmod -R 777 storage",
-            "php artisan passport:keys --force"
+            "php artisan passport:keys --force",
+            "@php artisan config:clear",
+            "@php artisan cache:clear"
         ]
     },
     "extra": {
