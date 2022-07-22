@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "711c6ffacfa1f4e6cd47630b21072b62",
+    "content-hash": "adc94ee0cf75256b6166d624eb6c2e55",
     "packages": [
         {
             "name": "bensampo/laravel-enum",
@@ -1742,16 +1742,16 @@
         },
         {
             "name": "escolalms/headless-h5p",
-            "version": "0.4.5",
+            "version": "0.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EscolaLMS/H5P.git",
-                "reference": "9f0cb13335e5b4d9f617d0ec9f556447e1fc26a0"
+                "reference": "1eb95d566f0574d767d4b837f9b647c43284a7c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EscolaLMS/H5P/zipball/9f0cb13335e5b4d9f617d0ec9f556447e1fc26a0",
-                "reference": "9f0cb13335e5b4d9f617d0ec9f556447e1fc26a0",
+                "url": "https://api.github.com/repos/EscolaLMS/H5P/zipball/1eb95d566f0574d767d4b837f9b647c43284a7c5",
+                "reference": "1eb95d566f0574d767d4b837f9b647c43284a7c5",
                 "shasum": ""
             },
             "require": {
@@ -1796,9 +1796,9 @@
             "description": "Headless H5P Laravel REST API",
             "support": {
                 "issues": "https://github.com/EscolaLMS/H5P/issues",
-                "source": "https://github.com/EscolaLMS/H5P/tree/0.4.5"
+                "source": "https://github.com/EscolaLMS/H5P/tree/0.4.6"
             },
-            "time": "2022-07-22T12:54:19+00:00"
+            "time": "2022-07-22T13:25:24+00:00"
         },
         {
             "name": "escolalms/model-fields",
@@ -2380,12 +2380,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-php-library.git",
-                "reference": "5162cfd2cf949a979ec58b8ba7629547aeb8eee9"
+                "reference": "09d59e643e9a5e0b6e91e7212dc32aaebcca2545"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/h5p/h5p-php-library/zipball/5162cfd2cf949a979ec58b8ba7629547aeb8eee9",
-                "reference": "5162cfd2cf949a979ec58b8ba7629547aeb8eee9",
+                "url": "https://api.github.com/repos/h5p/h5p-php-library/zipball/09d59e643e9a5e0b6e91e7212dc32aaebcca2545",
+                "reference": "09d59e643e9a5e0b6e91e7212dc32aaebcca2545",
                 "shasum": ""
             },
             "require": {
@@ -2434,7 +2434,7 @@
                 "issues": "https://github.com/h5p/h5p-php-library/issues",
                 "source": "https://github.com/h5p/h5p-php-library/tree/master"
             },
-            "time": "2022-06-24T10:24:29+00:00"
+            "time": "2022-07-22T14:18:43+00:00"
         },
         {
             "name": "h5p/h5p-editor",
@@ -2636,16 +2636,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.21.5",
+            "version": "v9.21.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "a1944cd0d160a2cc423ef5a451d002711c5f014f"
+                "reference": "569d7a2e361895f90e66bb4e02db89c27691a0e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a1944cd0d160a2cc423ef5a451d002711c5f014f",
-                "reference": "a1944cd0d160a2cc423ef5a451d002711c5f014f",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/569d7a2e361895f90e66bb4e02db89c27691a0e7",
+                "reference": "569d7a2e361895f90e66bb4e02db89c27691a0e7",
                 "shasum": ""
             },
             "require": {
@@ -2812,7 +2812,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-07-21T19:38:16+00:00"
+            "time": "2022-07-22T14:16:44+00:00"
         },
         {
             "name": "laravel/passport",
@@ -11288,8 +11288,11 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
+        "ext-pdo_sqlite": "*",
         "php": "^8.0.2"
     },
-    "platform-dev": [],
+    "platform-dev": {
+        "ext-pdo_sqlite": "*"
+    },
     "plugin-api-version": "2.3.0"
 }

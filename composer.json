@@ -8,7 +8,6 @@
     ],
     "license": "MIT",
     "require": {
-        "sqlite3": "*",
         "ext-pdo_sqlite": "*",
         "php": "^8.0.2",
         "escolalms/headless-h5p": "^0.4.3",
