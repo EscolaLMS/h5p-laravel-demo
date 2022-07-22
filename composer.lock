@@ -1742,16 +1742,16 @@
         },
         {
             "name": "escolalms/headless-h5p",
-            "version": "0.4.8",
+            "version": "0.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EscolaLMS/H5P.git",
-                "reference": "61a94d9fb9530c0a356a4027e5c28874365dcd82"
+                "reference": "a869aa6c8c535d909169b845e570a7ea2d304f5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EscolaLMS/H5P/zipball/61a94d9fb9530c0a356a4027e5c28874365dcd82",
-                "reference": "61a94d9fb9530c0a356a4027e5c28874365dcd82",
+                "url": "https://api.github.com/repos/EscolaLMS/H5P/zipball/a869aa6c8c535d909169b845e570a7ea2d304f5a",
+                "reference": "a869aa6c8c535d909169b845e570a7ea2d304f5a",
                 "shasum": ""
             },
             "require": {
@@ -1796,9 +1796,9 @@
             "description": "Headless H5P Laravel REST API",
             "support": {
                 "issues": "https://github.com/EscolaLMS/H5P/issues",
-                "source": "https://github.com/EscolaLMS/H5P/tree/0.4.8"
+                "source": "https://github.com/EscolaLMS/H5P/tree/0.4.11"
             },
-            "time": "2022-07-22T15:36:31+00:00"
+            "time": "2022-07-22T15:57:22+00:00"
         },
         {
             "name": "escolalms/model-fields",
