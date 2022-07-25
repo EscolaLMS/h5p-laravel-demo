@@ -121,7 +121,7 @@ export const updateContent = (data: H5PEditorContent, id?: string | number) => {
 export const listContent = (page: number | undefined = 1) => {
     return fetch(
         page
-            ? `${API_URL}/admin/hh5p/content/?page=${page}`
+            ? `${API_URL}/admin/hh5p/content?page=${page}`
             : `${API_URL}/admin/hh5p/content`,
         {
             method: "GET",
