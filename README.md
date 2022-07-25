@@ -2,7 +2,7 @@
 
 ## Working demo
 
-This project is deployed on heroku, ale available at [https://h5p-laravel-demo.herokuapp.com/](https://h5p-laravel-demo.herokuapp.com/)
+This project is deployed on heroku - available at [https://h5p-laravel-demo.herokuapp.com/](https://h5p-laravel-demo.herokuapp.com/)
 
 ## Installation
 
