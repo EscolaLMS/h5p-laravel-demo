@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Routes, Route, useParams, useNavigate } from "react-router-dom";
-//import { Editor } from "@escolalms/h5p-react";
 import { editorSettings, updateContent } from "../services";
-import { Editor } from "../components/h5p/editor";
-import { EditorSettings, H5PEditorContent } from "@escolalms/h5p-react";
+import {
+    EditorSettings,
+    H5PEditorContent,
+    ContextlessEditor as Editor,
+} from "@escolalms/h5p-react";
 
 export const page = () => {
     const { id } = useParams<{ id: string }>();
@@ -32,7 +34,6 @@ export const page = () => {
         updateContent(data, id === "new" ? undefined : id)
             .then((resp) => resp.json())
             .then((data) => {
-                console.log(data);
                 if (data.success) {
                     setLoading(false);
                     navigate(`/editor/${data.data.id}`);

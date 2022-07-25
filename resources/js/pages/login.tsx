@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { login } from "../services";
+import { useNavigate } from "react-router-dom";
+
 export const page = () => {
     const [state, setState] = useState<{
         email: string;
@@ -10,6 +12,8 @@ export const page = () => {
         password: "secret",
         loading: false,
     });
+    const navigate = useNavigate();
+
     const onSubmit = useCallback(
         (e: React.FormEvent) => {
             e.preventDefault();
@@ -19,6 +23,7 @@ export const page = () => {
                     if (data.success) {
                         localStorage.setItem("token", data.data.token);
                         window.dispatchEvent(new Event("storageLocal"));
+                        navigate("/index");
                     }
                 })
                 .catch((er) => console.error(er));
@@ -27,11 +32,13 @@ export const page = () => {
     );
     return (
         <div>
-            <h1>login</h1>
-            <form onSubmit={onSubmit}>
-                <label>
-                    Username:
+            <form onSubmit={onSubmit} className="pure-form">
+                <fieldset>
+                    <legend>Login form</legend>
+
                     <input
+                        placeholder="email"
+                        title="email"
                         type="text"
                         name="email"
                         value={state.email}
@@ -42,10 +49,9 @@ export const page = () => {
                             }))
                         }
                     />
-                </label>
-                <label>
-                    Password:
                     <input
+                        placeholder="password"
+                        title="password"
                         type="text"
                         name="password"
                         value={state.password}
@@ -56,8 +62,13 @@ export const page = () => {
                             }))
                         }
                     />
-                </label>
-                <button type="submit">submit</button>
+                    <button
+                        type="submit"
+                        className="pure-button pure-button-primary"
+                    >
+                        submit
+                    </button>
+                </fieldset>
             </form>
         </div>
     );
