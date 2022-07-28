@@ -1,4 +1,9 @@
 {
+    "name": "Node.js Sample",
+    "description": "A barebones Node.js app using Express",
+    "repository": "https://github.com/EscolaLMS/h5p-laravel-demo",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/9/9b/H5P_Logo.png",
+    "keywords": ["node", "express", "static"],
     "scripts": {
         "postdeploy": "./heroku.sh"
     }
