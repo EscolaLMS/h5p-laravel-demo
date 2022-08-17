@@ -4,6 +4,8 @@
 
 This project is deployed on heroku - available at [https://h5p-laravel-demo.herokuapp.com/](https://h5p-laravel-demo.herokuapp.com/)
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/EscolaLMS/h5p-laravel-demo)
+
 ## Installation
 
 This project is a standard Laravel project, there are multiple ways to install it on your machine.

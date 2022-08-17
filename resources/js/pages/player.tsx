@@ -9,42 +9,42 @@ import {
 } from "@escolalms/h5p-react";
 
 export const page = () => {
-    const { id } = useParams<{ id: string }>();
+    const { uuid } = useParams<{ uuid: string }>();
 
     const [settings, setSettings] = useState<EditorSettings>();
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        if (id) {
+        if (uuid) {
             setLoading(true);
-            contentSettings(id, localStorage.getItem("lang") || "en")
+            contentSettings(uuid, localStorage.getItem("lang") || "en")
                 .then((res) => res.json())
                 .then((data) => {
                     setSettings(data.data);
                     setLoading(false);
                 });
         }
-    }, [id]);
+    }, [uuid]);
 
     if (!settings) {
         return <p>loading...</p>;
     }
 
-    if (!id) {
-        return <p>error: id is not set</p>;
+    if (!uuid) {
+        return <p>error: uuid is not set</p>;
     }
 
-    return (
-        settings &&
-        id && (
+    if (settings && uuid && uuid !== "") {
+        return (
             <Player
                 onXAPI={(e) => console.log("xAPI event", e)}
-                contentId={id}
                 state={settings}
                 loading={loading}
             />
-        )
-    );
+        );
+    }
+
+    return <pre>error</pre>;
 };
 
 export default page;

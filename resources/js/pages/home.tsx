@@ -14,6 +14,7 @@ export const page = () => {
     });
     const navigate = useNavigate();
 
+    /*
     const onSubmit = useCallback(
         (e: React.FormEvent) => {
             e.preventDefault();
@@ -30,6 +31,7 @@ export const page = () => {
         },
         [state]
     );
+    */
     return (
         <div>
             <h3>

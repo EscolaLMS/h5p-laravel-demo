@@ -1,9 +1,9 @@
 {
-    "name": "Node.js Sample",
-    "description": "A barebones Node.js app using Express",
+    "name": "Laravel H5P Demo",
+    "description": "Headless REST API Laravel H5P Demo",
     "repository": "https://github.com/EscolaLMS/h5p-laravel-demo",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/9/9b/H5P_Logo.png",
-    "keywords": ["node", "express", "static"],
+    "keywords": ["h5p", "laravel", "headless"],
     "scripts": {
         "postdeploy": "./heroku.sh"
     }

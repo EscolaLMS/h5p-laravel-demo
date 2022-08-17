@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { listContent, PaginatedMetaList, H5PContent } from "../services";
+import {
+    listContent,
+    PaginatedMetaList,
+    H5PContent,
+    deleteContent,
+} from "../services";
 
 export const page = () => {
     const [page, setPage] = useState<number>(1);
     const [data, setData] = useState<PaginatedMetaList<H5PContent>>();
 
-    useEffect(() => {
+    const fetchData = useCallback((page: number) => {
         listContent(page)
             .then((res) => res.json())
             .then((data) => {
@@ -14,7 +19,26 @@ export const page = () => {
                     setData(data);
                 }
             });
+    }, []);
+
+    useEffect(() => {
+        fetchData(page);
     }, [page]);
+
+    const onDelete = useCallback(
+        (id: number) => {
+            if (confirm("Are you sure?")) {
+                deleteContent(id)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.success) {
+                            fetchData(page);
+                        }
+                    });
+            }
+        },
+        [page]
+    );
 
     if (data) {
         return (
@@ -23,15 +47,22 @@ export const page = () => {
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>uuid</th>
                             <th>Title</th>
                             <th>Library</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {data.data.length === 0 && (
+                            <tr>
+                                <td colSpan={5}>empty</td>
+                            </tr>
+                        )}
                         {data.data.map((h5p) => (
                             <tr key={h5p.id}>
                                 <td>{h5p.id}</td>
+                                <td>{h5p.uuid}</td>
                                 <td>{h5p.title}</td>
                                 <td>{h5p.library.title}</td>
                                 <td>
@@ -43,10 +74,16 @@ export const page = () => {
                                     </Link>{" "}
                                     <Link
                                         className="pure-button"
-                                        to={`/player/${h5p.id}`}
+                                        to={`/player/${h5p.uuid}`}
                                     >
                                         preview
-                                    </Link>
+                                    </Link>{" "}
+                                    <button
+                                        className="pure-button"
+                                        onClick={() => onDelete(h5p.id)}
+                                    >
+                                        delete
+                                    </button>
                                 </td>
                             </tr>
                         ))}
