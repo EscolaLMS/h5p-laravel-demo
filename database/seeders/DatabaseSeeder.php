@@ -9,6 +9,8 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
+use EscolaLms\Core\Seeders\RoleTableSeeder;
+use EscolaLms\Auth\Database\Seeders\AuthPermissionSeeder;
 
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +22,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(RoleTableSeeder::class);
+        $this->call(AuthPermissionSeeder::class);
+
         // roles
         $admin = Role::findOrCreate('admin', 'api');
         $student = Role::findOrCreate('student', 'api');
@@ -49,6 +54,7 @@ class DatabaseSeeder extends Seeder
 
         $admin->guard_name = 'api';
         $admin->assignRole('admin');
+
 
         $this->call(H5PPermissionTableSeeder::class);
         // \App\Models\User::factory(10)->create();

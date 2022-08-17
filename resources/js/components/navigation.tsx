@@ -1,11 +1,40 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import { Routes, Route, NavLink, Outlet } from "react-router-dom";
+import { Routes, Route, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { userMe } from "../services";
+
+const LANGS = {
+    en: {
+        welcome: "h5p-laravel demo",
+        login: "Login",
+        contentList: "Content List",
+        createNewElement: "Create New Element",
+        libraries: "Libraries",
+        config: "Config",
+        uploadNew: "Upload New",
+    },
+    pl: {
+        login: "Zaloguj",
+        contentList: "Lista zawartości",
+        createNewElement: "Utwórz nowy element",
+        libraries: "Biblioteki",
+        config: "Konfiguracja",
+        uploadNew: "Wgraj nowy",
+    },
+};
+
+const getLangItem = (key: string) => {
+    const lang = localStorage.getItem("lang") || "en";
+    return LANGS[lang][key] || LANGS["en"][key];
+};
 
 const navlinkStyle = ({ isActive }) =>
     isActive ? { textDecoration: "underline" } : {};
 
 export const Navigation = () => {
+    const navigate = useNavigate();
+
+    const [loading, setLoading] = useState<boolean>(false);
     const [loggedIn, setLoggedIn] = useState(
         window.localStorage.getItem("token") !== null
     );
@@ -16,16 +45,33 @@ export const Navigation = () => {
     const logout = () => {
         window.localStorage.removeItem("token");
         window.dispatchEvent(new Event("storageLocal"));
+        navigate("/", { replace: true });
     };
 
     const changeLang = useCallback((lang: string) => {
         setLang(lang);
         window.localStorage.setItem("lang", lang);
+        window.location.reload();
     }, []);
 
     useEffect(() => {
         const onStorage = () => {
             if (window.localStorage.getItem("token") !== null) {
+                setLoading(true);
+                userMe()
+                    .then((response) => {
+                        if (response.ok) {
+                            setLoggedIn(true);
+                        } else {
+                            logout();
+                        }
+                    })
+                    .catch((error) => {
+                        logout();
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
                 setLoggedIn(true);
             } else {
                 setLoggedIn(false);
@@ -33,6 +79,7 @@ export const Navigation = () => {
         };
         window.addEventListener("storage", onStorage);
         window.addEventListener("storageLocal", onStorage);
+        onStorage();
         return () => {
             window.removeEventListener("storage", onStorage);
             window.removeEventListener("storageLocal", onStorage);
@@ -40,40 +87,22 @@ export const Navigation = () => {
     }, []);
     return (
         <header className="pure-u-1-1">
-            <h1>Welcome to the h5p demo</h1>
+            <h1>{getLangItem("welcome")}</h1>
 
-            <form className="pure-form">
-                <label>Lang of h5p interface: </label>
-
-                <select
-                    value={lang}
-                    onChange={(e) => changeLang(e.target.value)}
-                >
-                    <option value="en">en</option>
-                    <option value="pl">pl</option>
-                </select>
-            </form>
-            <h2>Menu:</h2>
+            {loading && <p>loading...</p>}
             {loggedIn ? (
-                <nav className="pure-menu pure-menu-horizontal">
+                <nav
+                    className="pure-menu pure-menu-horizontal"
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                >
                     <ul className="pure-menu-list">
-                        <li className="pure-menu-item">
-                            <NavLink
-                                style={navlinkStyle}
-                                className="pure-menu-link"
-                                to="/"
-                                onClick={logout}
-                            >
-                                Logout
-                            </NavLink>
-                        </li>
                         <li className="pure-menu-item">
                             <NavLink
                                 style={navlinkStyle}
                                 className="pure-menu-link"
                                 to="index"
                             >
-                                List
+                                {getLangItem("contentList")}
                             </NavLink>
                         </li>
                         <li className="pure-menu-item">
@@ -82,10 +111,58 @@ export const Navigation = () => {
                                 className="pure-menu-link"
                                 to="editor/new"
                             >
-                                Create new element
+                                {getLangItem("createNewElement")}
+                            </NavLink>
+                        </li>
+                        <li className="pure-menu-item">
+                            <NavLink
+                                style={navlinkStyle}
+                                className="pure-menu-link"
+                                to="libraries"
+                            >
+                                {getLangItem("libraries")}
+                            </NavLink>
+                        </li>
+                        <li className="pure-menu-item">
+                            <NavLink
+                                style={navlinkStyle}
+                                className="pure-menu-link"
+                                to="index"
+                            >
+                                {getLangItem("config")}
+                            </NavLink>
+                        </li>
+                        <li className="pure-menu-item">
+                            <NavLink
+                                style={navlinkStyle}
+                                className="pure-menu-link"
+                                to="index"
+                            >
+                                {getLangItem("uploadNew")}
+                            </NavLink>
+                        </li>
+                        <li className="pure-menu-item">
+                            <NavLink
+                                style={navlinkStyle}
+                                className="pure-menu-link"
+                                to="/"
+                                onClick={logout}
+                            >
+                                {getLangItem("logout")}
                             </NavLink>
                         </li>
                     </ul>
+                    <form className="pure-form">
+                        <label>Lang: </label>
+
+                        <select
+                            value={lang}
+                            onChange={(e) => changeLang(e.target.value)}
+                        >
+                            <option value="en">en</option>
+                            <option value="pl">pl</option>
+                        </select>
+                    </form>
                 </nav>
             ) : (
                 <nav className="pure-menu pure-menu-horizontal">
@@ -95,7 +172,7 @@ export const Navigation = () => {
                             style={navlinkStyle}
                             to="login"
                         >
-                            Login
+                            {getLangItem("login")}
                         </NavLink>
                     </li>
                 </nav>

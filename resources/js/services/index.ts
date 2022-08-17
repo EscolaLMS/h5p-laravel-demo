@@ -1,5 +1,28 @@
 import { H5PEditorContent } from "@escolalms/h5p-react";
 
+export type H5PLibraryLanguage = {
+    library_id: number;
+    language_code: string;
+    translation: {
+        semantics: {
+            default?: string;
+            description?: string;
+            label: string;
+            fields: {
+                entity?: string;
+                widgets?: { label: string }[];
+                label: string;
+                description?: string;
+                placeholder?: string;
+                important?: {
+                    description?: string;
+                    example?: string;
+                };
+            }[];
+        }[];
+    };
+};
+
 export type H5PLibrary = {
     id: number;
     created_at: string;
@@ -14,18 +37,29 @@ export type H5PLibrary = {
     machineName: string;
     uberName: string;
     majorVersion: string;
+    major_version: number;
     minorVersion: string;
+    minor_version: number;
     patchVersion: string;
+    patch_version: number;
+    preloaded_js: string;
     preloadedJs: string;
+    preloaded_css: string;
     preloadedCss: string;
     dropLibraryCss: string;
+    drop_library_css: string;
+    has_icon: string;
     tutorialUrl: string;
+    tutorial_url: string;
     hasIcon: string;
     libraryId: number;
+    children: H5PLibrary[];
+    languages: H5PLibraryLanguage[];
 };
 
 export type H5PContent = {
     id: number;
+    uuid: string;
     created_at: string;
     updated_at: string;
     user_id: string | number;
@@ -88,8 +122,11 @@ export const editorSettings = (id?: string | number, lang: string = "en") => {
     });
 };
 
-export const contentSettings = (id?: string | number, lang: string = "en") => {
-    let url: string = `${API_URL}/hh5p/content/${id}`;
+export const contentSettings = (
+    uuid?: string | number,
+    lang: string = "en"
+) => {
+    let url: string = `${API_URL}/hh5p/content/${uuid}`;
     url = lang ? `${url}?lang=${lang}` : url;
     return fetch(url, {
         headers: {
@@ -132,4 +169,48 @@ export const listContent = (page: number | undefined = 1) => {
             },
         }
     );
+};
+
+export const userMe = () => {
+    return fetch(`${API_URL}/profile/me`, {
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        method: "GET",
+    });
+};
+
+export const libraries = () => {
+    return fetch(`${API_URL}/admin/hh5p/library`, {
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        method: "GET",
+    });
+};
+
+export const deleteContent = (id: number) => {
+    return fetch(`${API_URL}/admin/hh5p/content/${id}`, {
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        method: "DELETE",
+    });
+};
+
+export const deleteLibrary = (id: number) => {
+    return fetch(`${API_URL}/admin/hh5p/library/${id}`, {
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        method: "DELETE",
+    });
 };
