@@ -30,7 +30,7 @@ export const page = () => {
     const [data, setData] = useState<H5PLibraryWithDeps[]>();
     const [filter, setFilter] = useState<"all" | "runnable">("all");
 
-    const fetchData = useCallback((page: number) => {
+    const fetchData = useCallback(() => {
         libraries()
             .then((res) => res.json())
             .then((data) => {
@@ -44,20 +44,17 @@ export const page = () => {
         setFilter(filter);
     }, []);
 
-    const onDelete = useCallback(
-        (id: number) => {
-            if (confirm("Are you sure?")) {
-                deleteLibrary(id)
-                    .then((res) => res.json())
-                    .then((data) => {
-                        if (data.success) {
-                            fetchData(page);
-                        }
-                    });
-            }
-        },
-        [page]
-    );
+    const onDelete = useCallback((id: number) => {
+        if (confirm("Are you sure?")) {
+            deleteLibrary(id)
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.success) {
+                        fetchData();
+                    }
+                });
+        }
+    }, []);
 
     useEffect(() => fetchData(), []);
 

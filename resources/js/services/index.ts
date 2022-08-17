@@ -96,6 +96,22 @@ export type PaginatedMetaList<Model> = {
     };
 };
 
+export type Configs = Record<string, Record<string, ConfigEntry>>;
+
+//type ConfigsList = DefaultResponse<Configs>;
+
+export type ConfigEntry = {
+    key: keyof Configs;
+    full_key: string;
+} & Config;
+
+export type Config = {
+    rules: string[];
+    public: boolean;
+    readonly: boolean;
+    value: string | string[] | boolean | number | object;
+};
+
 const API_URL = "/api";
 
 export const login = (email: string, password: string) =>
@@ -214,3 +230,25 @@ export const deleteLibrary = (id: number) => {
         method: "DELETE",
     });
 };
+
+export const fetchConfig = () => {
+    return fetch(`${API_URL}/admin/config`, {
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        method: "GET",
+    });
+};
+
+/*
+export async function fetchConfig(options?: RequestOptionsInit) {
+    return request<API.ConfigsList>(`/api/admin/config`, {
+      method: 'GET',
+  
+      ...(options || {}),
+    });
+  }
+
+  */

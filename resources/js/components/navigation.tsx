@@ -128,7 +128,7 @@ export const Navigation = () => {
                             <NavLink
                                 style={navlinkStyle}
                                 className="pure-menu-link"
-                                to="index"
+                                to="config"
                             >
                                 {getLangItem("config")}
                             </NavLink>
