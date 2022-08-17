@@ -242,13 +242,27 @@ export const fetchConfig = () => {
     });
 };
 
-/*
-export async function fetchConfig(options?: RequestOptionsInit) {
-    return request<API.ConfigsList>(`/api/admin/config`, {
-      method: 'GET',
-  
-      ...(options || {}),
+export const updateConfig = ({
+    key,
+    value,
+}: {
+    key: string;
+    value: ConfigEntry["value"];
+}) => {
+    return fetch(`${API_URL}/admin/config`, {
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        method: "POST",
+        body: JSON.stringify({
+            config: [
+                {
+                    key,
+                    value,
+                },
+            ],
+        }),
     });
-  }
-
-  */
+};

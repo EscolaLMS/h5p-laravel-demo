@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { fetchConfig, Configs, ConfigEntry } from "../services";
+import { fetchConfig, Configs, ConfigEntry, updateConfig } from "../services";
 
 export const UpdateEntry: React.FC<{
     value: ConfigEntry;
@@ -46,28 +46,34 @@ export const page = () => {
             .then((data) => {
                 if (data.success) {
                     setData(data.data as Configs);
-                    console.log(Object.entries(data.data.hh5p));
                 }
             });
     }, []);
 
-    const onUpdate = useCallback((key: string, value: ConfigEntry["value"]) => {
-        setData((prevData) => {
-            if (prevData) {
-                return {
-                    ...prevData,
-                    hh5p: {
-                        ...prevData.hh5p,
+    const onUpdate = useCallback(
+        (key: string, value: ConfigEntry["value"]) => {
+            setData((prevData) => {
+                if (prevData) {
+                    return {
+                        ...prevData,
+                        hh5p: {
+                            ...prevData.hh5p,
 
-                        [key]: {
-                            ...prevData.hh5p[key],
-                            value: value,
+                            [key]: {
+                                ...prevData.hh5p[key],
+                                value: value,
+                            },
                         },
-                    },
-                };
+                    };
+                }
+            });
+            if (data) {
+                const full_key = data.hh5p[key].full_key;
+                updateConfig({ key: full_key, value });
             }
-        });
-    }, []);
+        },
+        [data]
+    );
 
     useEffect(() => {
         fetchData();
@@ -91,9 +97,9 @@ export const page = () => {
                                     <td>
                                         <UpdateEntry
                                             value={value}
-                                            onUpdate={(newValue) =>
-                                                onUpdate(key, newValue)
-                                            }
+                                            onUpdate={(newValue) => {
+                                                onUpdate(key, newValue);
+                                            }}
                                         />
                                     </td>
                                 </tr>
