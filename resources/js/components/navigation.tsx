@@ -5,6 +5,7 @@ import { userMe } from "../services";
 
 const LANGS = {
     en: {
+        logout: "Logout",
         welcome: "h5p-laravel demo",
         login: "Login",
         contentList: "Content List",
