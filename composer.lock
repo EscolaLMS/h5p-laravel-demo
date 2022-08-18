@@ -1754,16 +1754,16 @@
         },
         {
             "name": "escolalms/files",
-            "version": "0.1.23",
+            "version": "0.1.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EscolaLMS/Files.git",
-                "reference": "435543c4174af8635ff756cd51c18629135a300e"
+                "reference": "dae294b25d0e87a2508b07bab8bef432401374f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EscolaLMS/Files/zipball/435543c4174af8635ff756cd51c18629135a300e",
-                "reference": "435543c4174af8635ff756cd51c18629135a300e",
+                "url": "https://api.github.com/repos/EscolaLMS/Files/zipball/dae294b25d0e87a2508b07bab8bef432401374f3",
+                "reference": "dae294b25d0e87a2508b07bab8bef432401374f3",
                 "shasum": ""
             },
             "require": {
@@ -1804,22 +1804,22 @@
             "description": "Escola file repository API.",
             "support": {
                 "issues": "https://github.com/EscolaLMS/Files/issues",
-                "source": "https://github.com/EscolaLMS/Files/tree/0.1.23"
+                "source": "https://github.com/EscolaLMS/Files/tree/0.1.24"
             },
-            "time": "2022-06-24T10:47:16+00:00"
+            "time": "2022-08-17T09:49:16+00:00"
         },
         {
             "name": "escolalms/headless-h5p",
-            "version": "0.4.17",
+            "version": "0.4.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EscolaLMS/H5P.git",
-                "reference": "900be78b670f07ed38c321c7c66c2b64148434f4"
+                "reference": "912cad26002bccbaaff8a9308459f33d5f859210"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EscolaLMS/H5P/zipball/900be78b670f07ed38c321c7c66c2b64148434f4",
-                "reference": "900be78b670f07ed38c321c7c66c2b64148434f4",
+                "url": "https://api.github.com/repos/EscolaLMS/H5P/zipball/912cad26002bccbaaff8a9308459f33d5f859210",
+                "reference": "912cad26002bccbaaff8a9308459f33d5f859210",
                 "shasum": ""
             },
             "require": {
@@ -1866,9 +1866,9 @@
             "description": "Headless H5P Laravel REST API",
             "support": {
                 "issues": "https://github.com/EscolaLMS/H5P/issues",
-                "source": "https://github.com/EscolaLMS/H5P/tree/0.4.17"
+                "source": "https://github.com/EscolaLMS/H5P/tree/0.4.19"
             },
-            "time": "2022-08-17T08:30:45+00:00"
+            "time": "2022-08-18T13:15:44+00:00"
         },
         {
             "name": "escolalms/model-fields",
@@ -9120,16 +9120,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.15.3",
+            "version": "v1.15.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "7e7222ef0b0d7f0a0b9635543c0d7d09ef720cf1"
+                "reference": "853dea1fa866a52a93beccc4e5affdc49b98e7d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/7e7222ef0b0d7f0a0b9635543c0d7d09ef720cf1",
-                "reference": "7e7222ef0b0d7f0a0b9635543c0d7d09ef720cf1",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/853dea1fa866a52a93beccc4e5affdc49b98e7d5",
+                "reference": "853dea1fa866a52a93beccc4e5affdc49b98e7d5",
                 "shasum": ""
             },
             "require": {
@@ -9176,7 +9176,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2022-08-16T14:53:54+00:00"
+            "time": "2022-08-17T13:17:15+00:00"
         },
         {
             "name": "mockery/mockery",

@@ -35,7 +35,8 @@ export const page = () => {
             .then((res) => res.json())
             .then((data) => {
                 if (data.success) {
-                    setData(getDependencies(data.data));
+                    setData(data.data);
+                    //setData(getDependencies(data.data));
                 }
             });
     }, []);
@@ -85,8 +86,8 @@ export const page = () => {
                             <th>runnable</th>
                             <th>major_version</th>
                             <th>minor_version</th>
-                            <th>children</th>
-                            <th>dependencies</th>
+                            {/* <th>children</th>
+                            <th>dependencies</th> */}
                             <th>actions</th>
                         </tr>
                     </thead>
@@ -110,6 +111,7 @@ export const page = () => {
                                     <td>{h5p.runnable}</td>
                                     <td>{h5p.major_version}</td>
                                     <td>{h5p.minor_version}</td>
+                                    {/*
                                     <td>
                                         {h5p.children && (
                                             <ul>
@@ -125,6 +127,7 @@ export const page = () => {
                                         )}
                                     </td>
 
+                                   
                                     <td>
                                         {h5p.deps && (
                                             <ul>
@@ -139,14 +142,15 @@ export const page = () => {
                                             </ul>
                                         )}
                                     </td>
+                                                */}
 
                                     <td>
                                         <button
                                             onClick={() => onDelete(h5p.id)}
-                                            disabled={h5p.deps.length > 0}
+                                            disabled={!h5p.runnable}
                                             className="pure-button"
                                             title={
-                                                h5p.deps.length > 0
+                                                false
                                                     ? "This library cannot be deleted, because it is used in 1 other library"
                                                     : "Click to delete library"
                                             }
