@@ -266,3 +266,16 @@ export const updateConfig = ({
         }),
     });
 };
+
+export const uploadH5P = (file: File) => {
+    const formData = new FormData();
+    formData.append("h5p_file", file);
+    return fetch(`${API_URL}/admin/hh5p/content/upload`, {
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        method: "POST",
+        body: formData,
+    });
+};

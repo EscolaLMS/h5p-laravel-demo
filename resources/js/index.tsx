@@ -10,6 +10,7 @@ import PlayerPage from "./pages/player";
 import HomePage from "./pages/home";
 import LibrariesPage from "./pages/libraries";
 import ConfigPage from "./pages/config";
+import UploadPage from "./pages/upload";
 
 import Navigation from "./components/navigation";
 
@@ -29,6 +30,7 @@ root.render(
                 <Route path="/player/:uuid" element={<PlayerPage />}></Route>
                 <Route path="/libraries" element={<LibrariesPage />}></Route>
                 <Route path="/config" element={<ConfigPage />}></Route>
+                <Route path="/upload" element={<UploadPage />}></Route>
             </Routes>
         </div>
     </BrowserRouter>

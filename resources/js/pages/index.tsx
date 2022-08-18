@@ -90,16 +90,21 @@ export const page = () => {
                     </tbody>
                 </table>
                 <div>
-                    page:
-                    <select onChange={(e) => setPage(Number(e.target.value))}>
-                        {Array.from({ length: data.meta.last_page }).map(
-                            (el, i) => (
-                                <option key={i} value={i + 1}>
-                                    {i + 1}
-                                </option>
-                            )
-                        )}
-                    </select>
+                    <hr />
+                    <form className="pure-form">
+                        <label>page:</label>
+                        <select
+                            onChange={(e) => setPage(Number(e.target.value))}
+                        >
+                            {Array.from({ length: data.meta.last_page }).map(
+                                (el, i) => (
+                                    <option key={i} value={i + 1}>
+                                        {i + 1}
+                                    </option>
+                                )
+                            )}
+                        </select>
+                    </form>
                 </div>
             </div>
         );

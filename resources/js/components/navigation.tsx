@@ -137,7 +137,7 @@ export const Navigation = () => {
                             <NavLink
                                 style={navlinkStyle}
                                 className="pure-menu-link"
-                                to="index"
+                                to="upload"
                             >
                                 {getLangItem("uploadNew")}
                             </NavLink>
