@@ -2,7 +2,9 @@
 
 ## Working demo
 
-This project is deployed on heroku - available at [https://h5p-laravel-demo.herokuapp.com/](https://h5p-laravel-demo.herokuapp.com/)
+This project is deployed on docker - available at [https://h5p-laravel-demo.stage.etd24.pl/](https://h5p-laravel-demo.stage.etd24.pl/)
+
+You can deploy your own demo on heroku clicking on the link below
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/EscolaLMS/h5p-laravel-demo)
 
@@ -19,6 +21,12 @@ Unless you have `sail` alias created use ` ./vendor/bin/sail` where `sail` below
 4. Migrate and seed all the essential database data `sail artisan migrate:fresh --seed`
 5. Create a storage link `sail artisan storage:link`
 6. Create h5p storage link `sail artisan h5p:storage-link`
+
+Instead of step by step installation you could try with one command
+
+```bash
+make restart
+```
 
 Open the app at [http://localhost](http://localhost) and login with default credentials
 
