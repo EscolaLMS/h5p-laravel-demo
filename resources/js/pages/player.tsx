@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Routes, Route, useParams, useNavigate } from "react-router-dom";
-//import { Editor } from "@escolalms/h5p-react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { contentSettings } from "../services";
 import {
     EditorSettings,
-    H5PEditorContent,
     ContextlessPlayer as Player,
 } from "@escolalms/h5p-react";
 
@@ -36,11 +34,20 @@ export const page = () => {
 
     if (settings && uuid && uuid !== "") {
         return (
-            <Player
-                onXAPI={(e) => console.log("xAPI event", e)}
-                state={settings}
-                loading={loading}
-            />
+            <div>
+                <Player
+                    onXAPI={(e) => console.log("xAPI event", e)}
+                    state={settings}
+                    loading={loading}
+                />
+                <hr />
+                <p>
+                    <pre>
+                        Open Developer Tools Console to see xAPI events from
+                        this content
+                    </pre>
+                </p>
+            </div>
         );
     }
 

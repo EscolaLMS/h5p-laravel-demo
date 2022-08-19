@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
 import { fetchConfig, Configs, ConfigEntry, updateConfig } from "../services";
 
 export const UpdateEntry: React.FC<{

@@ -1,29 +1,51 @@
-import { link } from "fs/promises";
 import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
-import {
-    listContent,
-    PaginatedMetaList,
-    H5PContent,
-    libraries,
-    H5PLibrary,
-    deleteLibrary,
-} from "../services";
+import { libraries, H5PLibrary, deleteLibrary } from "../services";
 
 type H5PLibraryWithDeps = H5PLibrary & { deps: H5PLibrary[] };
 
-const getDependencies = (libraries: H5PLibrary[]) => {
-    return libraries.map((lib) => {
-        const deps = libraries.filter((l) => {
-            return !!l.children.find(
-                (sl) => sl.machineName === lib.machineName
-            );
-        });
-        return {
-            ...lib,
-            deps,
-        };
-    });
+const DeleteButton: React.FC<{ lib: H5PLibrary; onClick: () => void }> = ({
+    lib,
+    onClick,
+}) => {
+    const [showTooltip, setShowTooltip] = useState(false);
+
+    const canDelete = lib.runnable && lib.contentsCount === 0;
+    let deleteReason = "Click to delete library";
+    if (!lib.runnable) {
+        deleteReason = `This library cannot be deleted, because it is used in ${lib.requiredLibrariesCount} other library`;
+    }
+    if (lib.contentsCount > 0) {
+        deleteReason = `This library cannot be deleted, because it is used in ${lib.contentsCount} content`;
+    }
+
+    return (
+        <span
+            style={{ position: "relative" }}
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+        >
+            {showTooltip && !canDelete && (
+                <span
+                    style={{
+                        position: "absolute",
+                        left: "110%",
+                        fontSize: "10px",
+                        minWidth: "100px",
+                    }}
+                >
+                    {deleteReason}
+                </span>
+            )}
+            <button
+                onClick={onClick}
+                disabled={!canDelete}
+                className="pure-button"
+                title={deleteReason}
+            >
+                delete
+            </button>
+        </span>
+    );
 };
 
 export const page = () => {
@@ -36,7 +58,6 @@ export const page = () => {
             .then((data) => {
                 if (data.success) {
                     setData(data.data);
-                    //setData(getDependencies(data.data));
                 }
             });
     }, []);
@@ -86,8 +107,8 @@ export const page = () => {
                             <th>runnable</th>
                             <th>major_version</th>
                             <th>minor_version</th>
-                            {/* <th>children</th>
-                            <th>dependencies</th> */}
+                            <th># dependencies</th>
+                            <th># of content</th>
                             <th>actions</th>
                         </tr>
                     </thead>
@@ -104,62 +125,28 @@ export const page = () => {
                                 }
                                 return true;
                             })
-                            .map((h5p) => (
-                                <tr key={h5p.id}>
-                                    <td>{h5p.name}</td>
-                                    <td>{h5p.title}</td>
-                                    <td>{h5p.runnable}</td>
-                                    <td>{h5p.major_version}</td>
-                                    <td>{h5p.minor_version}</td>
-                                    {/*
-                                    <td>
-                                        {h5p.children && (
-                                            <ul>
-                                                {" "}
-                                                {h5p.children.map((child) => (
-                                                    <li key={child.id}>
-                                                        <small>
-                                                            {child.uberName}
-                                                        </small>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        )}
-                                    </td>
+                            .map((h5p) => {
+                                return (
+                                    <tr key={h5p.id}>
+                                        <td>{h5p.name}</td>
+                                        <td>{h5p.title}</td>
+                                        <td>
+                                            {h5p.runnable ? "TRUE" : "FALSE"}
+                                        </td>
+                                        <td>{h5p.major_version}</td>
+                                        <td>{h5p.minor_version}</td>
+                                        <td>{h5p.requiredLibrariesCount}</td>
+                                        <td>{h5p.contentsCount}</td>
 
-                                   
-                                    <td>
-                                        {h5p.deps && (
-                                            <ul>
-                                                {" "}
-                                                {h5p.deps.map((child) => (
-                                                    <li key={child.id}>
-                                                        <small>
-                                                            {child.uberName}
-                                                        </small>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        )}
-                                    </td>
-                                                */}
-
-                                    <td>
-                                        <button
-                                            onClick={() => onDelete(h5p.id)}
-                                            disabled={!h5p.runnable}
-                                            className="pure-button"
-                                            title={
-                                                false
-                                                    ? "This library cannot be deleted, because it is used in 1 other library"
-                                                    : "Click to delete library"
-                                            }
-                                        >
-                                            delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                                        <td>
+                                            <DeleteButton
+                                                lib={h5p}
+                                                onClick={() => onDelete(h5p.id)}
+                                            />
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                     </tbody>
                 </table>
             </div>
