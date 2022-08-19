@@ -4,11 +4,13 @@ import { fetchConfig, Configs, ConfigEntry, updateConfig } from "../services";
 export const UpdateEntry: React.FC<{
     value: ConfigEntry;
     onUpdate: (newValue: ConfigEntry["value"]) => void;
-}> = ({ value, onUpdate }) => {
+    loading: boolean;
+}> = ({ value, onUpdate, loading = false }) => {
     switch (typeof value.value) {
         case "string":
             return (
                 <input
+                    disabled={loading}
                     type="text"
                     value={value.value as string}
                     onChange={(e) => onUpdate(e.target.value)}
@@ -17,6 +19,7 @@ export const UpdateEntry: React.FC<{
         case "number":
             return (
                 <input
+                    disabled={loading}
                     type="number"
                     value={value.value as number}
                     onChange={(e) => onUpdate(Number(e.target.value))}
@@ -25,6 +28,7 @@ export const UpdateEntry: React.FC<{
         case "boolean":
             return (
                 <input
+                    disabled={loading}
                     type="checkbox"
                     checked={value.value as boolean}
                     onChange={(e) => onUpdate(e.target.checked)}
@@ -38,15 +42,18 @@ export const UpdateEntry: React.FC<{
 
 export const page = () => {
     const [data, setData] = useState<Configs>();
+    const [loading, setLoading] = useState<boolean>(false);
 
     const fetchData = useCallback(() => {
+        setLoading(true);
         fetchConfig()
             .then((res) => res.json())
             .then((data) => {
                 if (data.success) {
                     setData(data.data as Configs);
                 }
-            });
+            })
+            .finally(() => setLoading(false));
     }, []);
 
     const onUpdate = useCallback(
@@ -68,7 +75,10 @@ export const page = () => {
             });
             if (data) {
                 const full_key = data.hh5p[key].full_key;
-                updateConfig({ key: full_key, value });
+                setLoading(true);
+                updateConfig({ key: full_key, value }).finally(() =>
+                    setLoading(false)
+                );
             }
         },
         [data]
@@ -95,6 +105,7 @@ export const page = () => {
                                     <td>{key}</td>
                                     <td>
                                         <UpdateEntry
+                                            loading={loading}
                                             value={value}
                                             onUpdate={(newValue) => {
                                                 onUpdate(key, newValue);
