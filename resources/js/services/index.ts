@@ -24,6 +24,8 @@ export type H5PLibraryLanguage = {
 };
 
 export type H5PLibrary = {
+    contentsCount: number;
+    requiredLibrariesCount: number;
     id: number;
     created_at: string;
     updated_at: string;
