@@ -12,6 +12,7 @@ restart:
 
 update:
 	- git pull origin main
+	- ./vendor/bin/sail npm install
 	- ./vendor/bin/sail npm run build
 	- ./vendor/bin/sail composer update
 	- ./vendor/bin/sail artisan migrate
