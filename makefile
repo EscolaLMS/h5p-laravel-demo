@@ -9,3 +9,11 @@ restart:
 	- ./vendor/bin/sail artisan optimize:clear
 	- ./vendor/bin/sail artisan storage:link
 	- ./vendor/bin/sail artisan h5p:storage-link
+
+update:
+	- git pull origin main
+	- ./vendor/bin/sail npm run build
+	- ./vendor/bin/sail composer update
+	- ./vendor/bin/sail artisan migrate
+	- ./vendor/bin/sail artisan optimize:clear
+	
